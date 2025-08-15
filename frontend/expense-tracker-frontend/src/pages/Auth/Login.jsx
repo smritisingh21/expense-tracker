@@ -1,0 +1,71 @@
+import React , {  useState}from 'react'
+import AuthLayout from '../../components/layouts/AuthLayout'
+import Input from '../../components/layouts/Input'
+import {Link, useNavigate} from 'react-router-dom'
+import {validateEmail} from '../../utils/helper'
+
+export default function Login() {
+    const [email,setEmail] = useState("");
+    const [password,setPassword] = useState("");
+    const [error,setError] = useState(null);
+
+    const navigate = useNavigate();
+
+    //handle login form submit
+ 
+     const handleLogin= async (e) => { 
+      e.preventDefault();
+
+      if(!validateEmail(email)){
+        setError("Email not found. Please enter a valid email address.");
+        return;
+      }
+      if(!password){
+        setError("Invalid password");
+        return;
+      }
+      else setError("");
+     }
+
+
+
+  return (
+    <AuthLayout>
+    <div className="lg: w-70% h-3/4 md:h-full flex flex-col justify-centre">
+        <h3 className='texl-xl font-semibold text-black'>Welcome Back</h3>
+        <p className='text-xs text-slate-700 mt-[5px] mb-6 '>
+            Please enter your details to log in
+        </p>
+
+        <form onSubmit={handleLogin}>
+          <Input
+            type = "text"
+            label ="Email Address"
+            value = {email} onChange = {(e) =>{ setEmail(e.target.value)}}
+            placeholder = "John@example.com"
+            />
+          <Input
+            type = "password"
+            label ="Password"
+            value = {password} 
+            onChange = {(e) =>{ setPassword(e.target.value)}}
+            placeholder = "Minimum 8 characters"
+            />
+
+            {error && <p className='text-red-500 text-xs pb-2.5'>{error}</p>}
+
+            <button type='submit' className='btn-primary'>
+              LOGIN
+              </button>
+
+            <p className='text-[13px] text-slate-800 mt-3' >
+              Don't have an account? {" "}
+              <Link className='font-medium text-primary underline' to='/signup'>
+              SignUp
+              </Link>
+            </p>
+        </form>
+    </div>
+    </AuthLayout>
+  )
+}
