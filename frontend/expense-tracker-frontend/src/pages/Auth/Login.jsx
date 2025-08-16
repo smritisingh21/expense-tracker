@@ -11,7 +11,7 @@ export default function Login() {
 
     const navigate = useNavigate();
 
-    //handle login form submit
+     //handle login form submit
  
      const handleLogin= async (e) => { 
       e.preventDefault();
@@ -26,9 +26,7 @@ export default function Login() {
       }
       else setError("");
      }
-
-
-
+    
   return (
     <AuthLayout>
     <div className="lg: w-70% h-3/4 md:h-full flex flex-col justify-centre">
@@ -41,7 +39,8 @@ export default function Login() {
           <Input
             type = "text"
             label ="Email Address"
-            value = {email} onChange = {(e) =>{ setEmail(e.target.value)}}
+            value = {email} 
+            onChange = {(e) =>{ setEmail(e.target.value)}}
             placeholder = "John@example.com"
             />
           <Input

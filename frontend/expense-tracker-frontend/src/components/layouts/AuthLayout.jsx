@@ -1,7 +1,9 @@
 import React from 'react'
 import CARD_2 from '/src/assets/images/card2.png'
 import {LuTrendingUpDown} from 'react-icons/lu'
-
+// AuthLayout component for authentication pages
+// It includes a background image and a stats card
+// This layout is used for both login and signup pages
 export default function AuthLayout({children}) {
 
   return (
