@@ -5,11 +5,13 @@ import SignUp from "./pages/Auth/SignUp"
 
 
 import { BrowserRouter as Router , Routes , Route , Navigate } from "react-router-dom"
+import { UserContext } from "./context/UserContext"
 
 function App() {
 
   return (
-    <div>
+    <UserProvider>
+        <div>
       <Router>
         <Routes>
           {/* <Route path="/" element={<Root />} /> */}
@@ -20,6 +22,7 @@ function App() {
         </Routes>
       </Router>
     </div>
+      </UserProvider>
   )
 }
 

@@ -1,16 +1,18 @@
-import React , {  useState}from 'react'
+import React , {  useContext, useState}from 'react'
 import AuthLayout from '../../components/layouts/AuthLayout'
 import Input from '../../components/layouts/Input'
 import {Link, useNavigate} from 'react-router-dom'
 import {validateEmail} from '../../utils/helper'
 import axiosInstance from '../../utils/axiosInstance'
 import { API_PATHS } from '../../utils/apiPaths'
+import { UserContext } from '../../context/UserContext'
 
 export default function Login() {
   const [email,setEmail] = useState("");
   const [password,setPassword] = useState("");
   const [error,setError] = useState(null);
 
+  const {updateUser, clearUser} = useContext(UserContext);
   const navigate = useNavigate();
 
   //handle login form submit
@@ -38,6 +40,7 @@ export default function Login() {
   const {token , user} = response.data;
   if(token){
     localStorage.setItem("token" ,token);
+    updateUser(user);
     navigate("/dashboard")
   }
   }catch(err){
