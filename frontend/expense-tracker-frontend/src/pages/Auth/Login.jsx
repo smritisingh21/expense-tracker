@@ -3,30 +3,50 @@ import AuthLayout from '../../components/layouts/AuthLayout'
 import Input from '../../components/layouts/Input'
 import {Link, useNavigate} from 'react-router-dom'
 import {validateEmail} from '../../utils/helper'
+import axiosInstance from '../../utils/axiosInstance'
+import { API_PATHS } from '../../utils/apiPaths'
 
 export default function Login() {
-    const [email,setEmail] = useState("");
-    const [password,setPassword] = useState("");
-    const [error,setError] = useState(null);
+  const [email,setEmail] = useState("");
+  const [password,setPassword] = useState("");
+  const [error,setError] = useState(null);
 
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-     //handle login form submit
+  //handle login form submit
  
-     const handleLogin= async (e) => { 
-      e.preventDefault();
+  const handleLogin= async (e) => { 
+  e.preventDefault();
 
-      if(!validateEmail(email)){
-        setError("Email not found. Please enter a valid email address.");
-        return;
-      }
-      if(!password){
-        setError("Invalid password");
-        return;
-      }
-      else setError("");
-     }
-    
+   if(!validateEmail(email)){
+   setError("Email not found. Please enter a valid email address.");
+   return;
+  }
+  if(!password){
+  setError("Invalid password");
+  return;
+  }
+  else setError("");
+
+//Login API call
+
+  try{
+  const response = await axiosInstance.post(API_PATHS.AUTH.LOGIN,{
+    email,
+    password,
+  })
+  const {token , user} = response.data;
+  if(token){
+    localStorage.setItem("token" ,token);
+    navigate("/dashboard")
+  }
+  }catch(err){
+  if(err.response && err.response.data.message ){
+    setError(error.response.data.message)
+  }else{
+    setError("Something went wrong. Please try again")
+  }
+  }}
   return (
     <AuthLayout>
     <div className="lg: w-70% h-3/4 md:h-full flex flex-col justify-centre">
