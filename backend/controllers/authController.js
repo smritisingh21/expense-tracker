@@ -5,10 +5,7 @@ const jwt = require("jsonwebtoken");
 
  //generate JWT token
  const generateToken = (id) => {
-     return 
-        jwt.sign({ id },
-         process.env.JWT_SECRET, 
-         {expiresIn: "1h",});
+     return jwt.sign({ id }, process.env.JWT_SECRET, {expiresIn: "1h",});
  }
 
  //register user 
@@ -39,7 +36,7 @@ const jwt = require("jsonwebtoken");
             });
         
     }catch (error) {
-        res.status(500).json({ message: "Server error" , error: error.message });
+        res.status(500).json({ message: "Server error"  });
     }
     };
  //login user 

@@ -1,17 +1,31 @@
-import React ,{useState}from 'react'
+import React ,{useContext, useState}from 'react'
 import AuthLayout from '../../components/layouts/AuthLayout'
 import Input from '../../components/layouts/Input'
 import {useNavigate , Link} from 'react-router-dom'
 import ProfilePicSelector from '../../components/ProfilePicSelector';
+import { UserContext } from '../../context/UserContext';
+import { validateEmail } from '../../utils/helper';
+import { API_PATHS } from '../../utils/apiPaths';
+import axiosInstance from '../../utils/axiosInstance';
+import uploadImage  from '../../utils/uploadImage';
+
+
 
 // SignUp component for user registration
 
 export default function Signup() {
+
+  const navigate = useNavigate()
+
   const [profilePicture, setProfilePicture] = useState(null);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const {updateUser} = useContext(UserContext);
+
+
+  let profileImageUrl = "";
 
  const  handleSignup = async (e) => {
     e.preventDefault();
@@ -23,9 +37,40 @@ export default function Signup() {
     if (!validateEmail(email)) {
       setError("Invalid email format");
       return;
-    }}
+   }
+   if(!password){
+    return("please enter your password")
 
-  const navigate = useNavigate();
+   }
+   //SIGN UP Api call
+  try{
+    //upload image if present
+    if(profilePicture){
+      const imageUploadRes = await uploadImage(profilePicture)
+      profileImageUrl = imageUploadRes.imageUrl || "";
+    }
+    
+    const response = await axiosInstance.post(API_PATHS.AUTH.REGISTER,{
+    name,
+    email,
+    password,
+    profileImageUrl
+    })
+
+    const {token , user} = response.data;
+
+    if(token){
+    localStorage.setItem("token" ,token);
+    updateUser(user);
+    navigate("/dashboard")
+    }
+   }catch(err){
+    if(err.response && err.response.data.message ){
+    setError(err.response.data.message)
+   } 
+  }
+  }
+
 
   return (
 
@@ -79,4 +124,5 @@ export default function Signup() {
       </div>
     </AuthLayout>
     )
-}
+
+  }
