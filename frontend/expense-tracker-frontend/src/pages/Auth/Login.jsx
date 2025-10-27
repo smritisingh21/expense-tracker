@@ -38,11 +38,13 @@ export default function Login() {
     password,
   })
   const {token , user} = response.data;
+
   if(token){
     localStorage.setItem("token" ,token);
     updateUser(user);
     navigate("/dashboard")
   }
+  
   }catch(err){
   if(err.response && err.response.data.message ){
     setError(error.response.data.message)

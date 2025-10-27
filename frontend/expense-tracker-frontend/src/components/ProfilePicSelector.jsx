@@ -17,9 +17,10 @@ export default function ProfilePicSelector({image, setImage}) {
     setImage(null);
     setPreviewURL(null);
 
+    // Clear the input field
     if(inputRef.current) {
         inputRef.current.value = null; 
-    }// Clear the input field
+    }
   }
     const onChooseFile =() =>{ // Trigger file input click
     if(inputRef.current) {

@@ -11,10 +11,15 @@ const dashboardRoutes= require("./routes/dashboardRoutes");
 
 const app = express();
 
+const allowedOrigins = [
+    'http://localhost:5173', // Your React/Vite development server
+    'http://localhost:8000', 
+]
+
 app.use( //global middleware
     cors(
         {
-        origin : process.env.PORT || "http://localhost:8000",
+        origin : allowedOrigins,
         methods: ["GET", "POST", "PUT", "DELETE"],
         allowedHeaders: ["Content-Type", "Authorization"],
 
