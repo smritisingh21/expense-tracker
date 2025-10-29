@@ -84,7 +84,7 @@ export default function Login() {
 
             <p className='text-[13px] text-slate-800 mt-3' >
               Don't have an account? {" "}
-              <Link className='font-medium text-primary underline' to='/signup'>
+              <Link className='font-medium text-primary underline' to='/register'>
               SignUp
               </Link>
             </p>
