@@ -6,12 +6,13 @@ const {isValidObjectId , Types} = require('mongoose');
 exports.getDashboardData = async(req,res) =>{
 try{
     const userId = req.user.id;
-    const userObjId = new Types.objectId(String(userId));
+    const userObjId = new Types.ObjectId(String(userId));
 
     const totalIncome = await Income.aggregate([
         {$match : {userId : userObjId}},
         {$group :{_id : null , total :{$sum :"$amount"}}}
     ])
+    
     console.log("totalIncome", {totalIncome ,userId : isValidObjectId(userId)});
     
      const totalExpense = await Expense.aggregate([
@@ -55,7 +56,7 @@ try{
 
     //finalresponse
       res.status(200).json({
-        totalbalance : (totalIncome[0].total || 0 ) - (totalExpense[0].total || 0 ),
+        totalBalance : (totalIncome[0].total || 0 ) - (totalExpense[0].total || 0 ),
         totalIncome : totalIncome[0]?.total || 0,
         totalExpense: totalExpense[0]?.total || 0,
 
@@ -68,7 +69,6 @@ try{
             total : incomeLast60days ,
             transactions : last60daysIncomeTransactions,
         },
-
         recentTransactions : lastTransactions
     })
   }catch(err){
