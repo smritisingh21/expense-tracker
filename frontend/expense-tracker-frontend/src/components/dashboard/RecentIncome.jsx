@@ -1,15 +1,15 @@
 import React from 'react'
+import TransactionInfoCard from '../cards/TransactionInfoCard.jsx'
 import { LuArrowRight } from 'react-icons/lu'
-import TransactionInfoCard from '../cards/TransactionInfoCard'
+
 import moment from 'moment'
 
-export const ExpenseTransactions = ({transactions , onseeMore}) => {
+
+const RecentIncome = ({transactions , onseeMore}) => {
   return (
     <div className='card'>
         <div className='flex items-center justify-between'>
-            
-            <h5 className='text-lg'>Expenses</h5>
-
+            <h5 className='text-lg'>Income</h5>
             <button className='card-btn' onClick={onseeMore}>
                 See All 
                 <LuArrowRight className='text-base'/>
@@ -17,14 +17,14 @@ export const ExpenseTransactions = ({transactions , onseeMore}) => {
         </div>
 
         <div className='mt-6'>
-            {transactions?.slice(0,5).map((expense) =>(
+            {transactions?.slice(0,5).map((income) =>(
                 <TransactionInfoCard
-                    key={expense._id}
-                    title={ expense.category}
-                    icon ={expense.icon}
-                    date={moment(expense.date).format('DD MM YYYY')}
-                    amount={expense.amount}
-                    type= "expense"
+                    key={income._id}
+                    title={ income.category}
+                    icon ={income.icon}
+                    date={moment(income.date).format('DD MM YYYY')}
+                    amount={income.amount}
+                    type= "income"
                     hideDeleteBtn
                 />
           ))}
@@ -32,3 +32,5 @@ export const ExpenseTransactions = ({transactions , onseeMore}) => {
     </div>
   )
 }
+
+export default RecentIncome;

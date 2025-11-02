@@ -13,7 +13,7 @@ import FinanceOverview  from '../../components/dashboard/FinanceOverview.jsx';
 import { ExpenseTransactions } from '../../components/dashboard/ExpenseTransactions.jsx';
 import { Last30daysExpenses } from './Last30daysExpenses.jsx';
 import RecentIncomeWithChart from '../../components/dashboard/RecentIncomeWithChart.jsx'
-
+import RecentIncome from '../../components/dashboard/RecentIncome.jsx'
 
 export default function Home() {
 
@@ -93,6 +93,11 @@ export default function Home() {
          data={dashboardData?.last60DaysIncome?.transactions || []}
          totalIncome = {dashboardData?.totalIncome || 0}
           
+        />
+
+         <RecentIncome
+        transactions ={dashboardData?.last60DaysIncome?.transactions || []}
+        onseeMore ={()=> navigate("/income")}
         />
       </div>
      </div>
