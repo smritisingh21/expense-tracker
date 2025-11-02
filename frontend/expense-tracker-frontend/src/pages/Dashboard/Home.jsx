@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import DashboardLayout from '../../components/layouts/DashboardLayout';
-import useUserAuth from "../../hooks/useUserAuth.jsx"
-import { addThousandsSeparator } from '../../utils/helper.js';
-import InfoCard from '../../components/cards/InfoCard.jsx';
 import axiosInstance from '../../utils/axiosInstance.js';
 import { API_PATHS } from '../../utils/apiPaths.js';
 import {IoMdCard }from "react-icons/io"
-import RecentTransactions from '../../components/dashboard/RecentTransactions.jsx';
 import{LuHandCoins , LuWalletMinimal} from "react-icons/lu"
+import { addThousandsSeparator } from '../../utils/helper.js';
+import DashboardLayout from '../../components/layouts/DashboardLayout';
+import useUserAuth from "../../hooks/useUserAuth.jsx"
+import InfoCard from '../../components/cards/InfoCard.jsx';
+import RecentTransactions from '../../components/dashboard/RecentTransactions.jsx';
+import FinanceOverview  from '../../components/dashboard/FinanceOverview.jsx';
+import { ExpenseTransactions } from '../../components/dashboard/ExpenseTransactions.jsx';
+import { Last30daysExpenses } from './Last30daysExpenses.jsx';
+import RecentIncomeWithChart from '../../components/dashboard/RecentIncomeWithChart.jsx'
+
 
 export default function Home() {
 
@@ -69,6 +74,26 @@ export default function Home() {
         onseeMore ={()=> navigate("/expenses")}
         />
 
+        <FinanceOverview 
+            totalBalance ={dashboardData?.totalBalance || 0 }
+            totalIncome ={dashboardData?.totalIncome || 0 }
+            totalExpense ={dashboardData?.totalExpense || 0 }
+        />
+
+        <ExpenseTransactions 
+          data={dashboardData?.last30DaysExpenses?.transactions || []}
+          onseeMore ={()=> navigate("/expenses")}
+          />
+
+        <Last30daysExpenses
+          data={dashboardData?.last30DaysExpenses?.transactions || []}
+        />
+
+        <RecentIncomeWithChart
+         data={dashboardData?.last60DaysIncome?.transactions || []}
+         totalIncome = {dashboardData?.totalIncome || 0}
+          
+        />
       </div>
      </div>
     </DashboardLayout>

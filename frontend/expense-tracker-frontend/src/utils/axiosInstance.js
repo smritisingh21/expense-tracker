@@ -6,7 +6,7 @@ const axiosInstance = axios.create({
     timeout : 10000,
     headers :{
         "Content-Type":"application/json",
-        "Accept":"application/json",
+        "Accept":"application/json"
     }
 })
 
@@ -16,7 +16,8 @@ axiosInstance.interceptors.request.use(
         const accessToken = localStorage.getItem("token");
         if(accessToken){
             config.headers.Authorization =`Bearer ${accessToken}`
-        }return config;
+        }
+        return config;
     },(error) =>{
         return Promise.reject(error);
     }
@@ -29,17 +30,16 @@ axiosInstance.interceptors.response.use(
         return response;
     },
     (error)=>{
-        if(error.response.status == 401){
-            window.location.href ='./login'
-        }
-        else if(error.response.status == 500){
-         console.log("Server error .PLease try again later");
-        }
-        else if(error.code === "ECONNABORTED"){
-         console.log("Server error .PLease try again later");
-        }
-        return Promise.reject(error);
-
-    }
+    if (error.response) {
+         if (error.response.status === 401) {
+         window.location.href = '/login';
+         } else if (error.response.status === 500) {
+            console.log("Server error. Please try again later");
+         } else if (error.code === "ECONNABORTED") {
+         console.log("Request timed out. Please try again later");
+       }
+    } else {
+    console.log("Network error or no response from server");
+    }}
 )
 export default axiosInstance;

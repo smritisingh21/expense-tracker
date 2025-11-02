@@ -25,7 +25,7 @@ export default function Login() {
    return;
   }
   if(!password){
-  setError("Invalid password");
+  setError("Please enter a password");
   return;
   }
   else setError("");
@@ -44,17 +44,16 @@ export default function Login() {
     updateUser(user);
     navigate("/dashboard")
   }
-  
   }catch(err){
   if(err.response && err.response.data.message ){
-    setError(error.response.data.message)
+    setError(err.response.data.message)
   }else{
     setError("Something went wrong. Please try again")
   }
   }}
   return (
     <AuthLayout>
-    <div className="lg: w-70% h-3/4 md:h-full flex flex-col justify-centre">
+    <div className="lg: w-70% h-3/4 md:h-full mt-30 flex flex-col justify-centre">
         <h3 className='texl-xl font-semibold text-black'>Welcome Back</h3>
         <p className='text-xs text-slate-700 mt-[5px] mb-6 '>
             Please enter your details to log in

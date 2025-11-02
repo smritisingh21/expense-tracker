@@ -4,20 +4,27 @@ const {isValidObjectId , Types} = require('mongoose');
 
 
 exports.getDashboardData = async(req,res) =>{
+
 try{
     const userId = req.user.id;
     const userObjId = new Types.ObjectId(String(userId));
 
     const totalIncome = await Income.aggregate([
         {$match : {userId : userObjId}},
-        {$group :{_id : null , total :{$sum :"$amount"}}}
+        {$group :{
+            _id : null , 
+            total :{$sum :"$amount"}
+        }}
     ])
     
     console.log("totalIncome", {totalIncome ,userId : isValidObjectId(userId)});
     
      const totalExpense = await Expense.aggregate([
         {$match : {userId : userObjId}},
-        {$group :{_id : null , total :{$sum :"$amount"}}}
+        {$group :{
+            _id : null ,
+            total :{$sum :"$amount"}
+            }}
     ])
     //income transactions in the last 60 days
     const last60daysIncomeTransactions = await Income.find({
@@ -44,19 +51,19 @@ try{
         ...(await Income.find({userId}).sort({date : -1}).limit(5)) .map(
             (txn) =>({
             ...txn.toObject(),
-            type: income ,
+            type: "income",
         })),
 
-        ...(await Income.find({userId}).sort({date : -1}).limit(5)) .map(
+        ...(await Expense.find({userId}).sort({date : -1}).limit(5)) .map(
             (txn) =>({
             ...txn.toObject(),
-            type: income ,
+            type: "expense",
         }))
-    ].sort((a , b ) => b.date - a.date);//sort latest first
+    ].sort((a , b ) => new Date(b.date) - new Date(a.date));//sort latest first
 
     //finalresponse
       res.status(200).json({
-        totalBalance : (totalIncome[0].total || 0 ) - (totalExpense[0].total || 0 ),
+        totalBalance : (totalIncome[0]?.total || 0 ) - (totalExpense[0]?.total || 0 ),
         totalIncome : totalIncome[0]?.total || 0,
         totalExpense: totalExpense[0]?.total || 0,
 
@@ -72,7 +79,7 @@ try{
         recentTransactions : lastTransactions
     })
   }catch(err){
-    res.status(400).json({message :"server error"})
+    res.status(400).json({message :"server error", err})
   }
 }
 

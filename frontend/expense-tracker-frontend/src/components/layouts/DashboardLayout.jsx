@@ -4,7 +4,6 @@ import {UserContext} from "../../context/UserContext"
 import SideMenu from "./SideMenu.jsx"
 
 export default function DashboardLayout({children, activeMenu}){
-
   const {user} = useContext(UserContext);
   return (
     <div className=' min-h-screen bg-gray-50'>
