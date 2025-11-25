@@ -22,23 +22,35 @@ exports.addIncome = async( req, res) => {
 }
 }
 
-
 //get all income
 exports.getAllIncome = async( req, res) => {
-    const userId = req.user.id;
     try{
+        if (!req.user || !req.user.id) {
+            return res.status(401).json({ message: "Unauthorized. User session expired or invalid." });
+        }
+        const userId = req.user.id; 
         const income = await Income.find({ userId : userId}).sort({date: -1})
         res.json(income);
     }catch(err){
-     res.status(500).json({message : err.message})
+        console.error("Error fetching income:", err); 
+        res.status(500).json({message : err.message})
     }
 }
 
 //delete
 exports.deleteIncome = async( req, res) => {
     const userId = req.user.id;
+    const incomeId = req.params.id;
     try{
-        await Income.findByIdAndDelete({ userId : userId})
+       const deletedIncome = await Income.findOneAndDelete({ 
+            _id : incomeId, // Match by the document ID
+            userId : userId // And ensure it belongs to the current user
+        })
+
+        if (!deletedIncome) {
+             return res.status(404).json({ message: "Income record not found or unauthorized." });
+        }
+
         res.json({message : "Deletion successful"});
     }catch(err){
      res.status(500).json({message : err.message})

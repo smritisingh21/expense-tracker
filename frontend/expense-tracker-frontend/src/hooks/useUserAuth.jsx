@@ -34,10 +34,7 @@ const useUserAuth =() => {
          }
     },[updateUser , clearUser , navigate]);
 
-   
-  return (
-    <div>useUserAuth</div>
-  )
+
 }
 
 export default useUserAuth;

@@ -44,8 +44,11 @@ export default function Home() {
 
     useEffect(()=>{
       fetchDashboardData();
-      return () =>{};
+      return(() =>{});
     },[])
+
+
+
   return (
     <DashboardLayout activeMenu="Dashboard">
     <div className=' my-5 mx-auto'>

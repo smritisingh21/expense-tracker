@@ -15,4 +15,4 @@ const mongoose = require("mongoose");
  }
 )
 
-mongoose.exports = mongoose.model("Income" , IncomeSchema);
+module.exports = mongoose.model("Income" , IncomeSchema);
