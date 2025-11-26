@@ -8,7 +8,6 @@ import AddIncomeForms from '../../components/income/AddIncomeForms.jsx';
 import axiosInstance from '../../utils/axiosInstance.js';
 
 export default function Income() {
-//why can't i see the render of these components?
   const [incomeData , setIncomeData] = useState([]);
   const [loading , setLoading] = useState(false);
   const [openDeleteAlert , setOpenDeleteAlert] = useState({show :false, data: null});

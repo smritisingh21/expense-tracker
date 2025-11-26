@@ -47,62 +47,68 @@ export default function Home() {
       return(() =>{});
     },[])
 
-
-
   return (
     <DashboardLayout activeMenu="Dashboard">
     <div className=' my-5 mx-auto'>
-      <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
-        <InfoCard icon={<IoMdCard/>}
-        label="Total balance"
-        value = {addThousandsSeparator(dashboardData?.totalBalance || 0)}
-        color = "bg-primary"
-        />
+      
+      {/* FIX: Add defensive rendering while data is null or loading */}
+      {(!dashboardData || loading) ? (
+        <div className='text-white text-center py-20'>Loading Dashboard Data...</div>
+      ) : (
+        <>
+        <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
+          <InfoCard icon={<IoMdCard/>}
+          label="Total balance"
+          value = {addThousandsSeparator(dashboardData.totalBalance || 0)}
+          color = "bg-primary"
+          />
 
-        <InfoCard icon={<LuWalletMinimal/>}
-        label="Total Income"
-        value = {addThousandsSeparator(dashboardData?.totalIncome || 0)}
-        color = "bg-orange-500"
-        />
+          <InfoCard icon={<LuWalletMinimal/>}
+          label="Total Income"
+          value = {addThousandsSeparator(dashboardData.totalIncome || 0)}
+          color = "bg-orange-500"
+          />
 
-        <InfoCard icon={<LuHandCoins/>}
-        label="Total Expense"
-        value = {addThousandsSeparator(dashboardData?.totalExpense || 0)}
-        color = "bg-red-500"
-        />
-      </div>
-      <div className='grid grid-cols-1 md:grid-cols-2 gap-6 mt-6'>
-        <RecentTransactions 
-        transactions ={dashboardData?.recentTransactions}
-        onseeMore ={()=> navigate("/expenses")}
-        />
-
-        <FinanceOverview 
-            totalBalance ={dashboardData?.totalBalance || 0 }
-            totalIncome ={dashboardData?.totalIncome || 0 }
-            totalExpense ={dashboardData?.totalExpense || 0 }
-        />
-
-        <ExpenseTransactions 
-          data={dashboardData?.last30DaysExpenses?.transactions || []}
+          <InfoCard icon={<LuHandCoins/>}
+          label="Total Expense"
+          value = {addThousandsSeparator(dashboardData.totalExpense || 0)}
+          color = "bg-red-500"
+          />
+        </div>
+        <div className='grid grid-cols-1 md:grid-cols-2 gap-6 mt-6'>
+          <RecentTransactions 
+          transactions ={dashboardData.recentTransactions}
           onseeMore ={()=> navigate("/expenses")}
           />
 
-        <Last30daysExpenses
-          data={dashboardData?.last30DaysExpenses?.transactions || []}
-        />
+          <FinanceOverview 
+              totalBalance ={dashboardData.totalBalance || 0 }
+              totalIncome ={dashboardData.totalIncome || 0 }
+              totalExpense ={dashboardData.totalExpense || 0 }
+          />
 
-        <RecentIncomeWithChart
-         data={dashboardData?.last60DaysIncome?.transactions || []}
-         totalIncome = {dashboardData?.totalIncome || 0}
-          
-        />
+          <ExpenseTransactions 
+            data={dashboardData.last30DaysExpenses?.transactions || []}
+            onseeMore ={()=> navigate("/expenses")}
+            />
 
-         <RecentIncome
-        transactions ={dashboardData?.last60DaysIncome?.transactions || []}
-        onseeMore ={()=> navigate("/income")}
-        />
-      </div>
+          <Last30daysExpenses
+            data={dashboardData.last30DaysExpenses?.transactions || []}
+          />
+
+          <RecentIncomeWithChart
+          data={dashboardData.last60DaysIncome?.transactions || []}
+          totalIncome = {dashboardData.totalIncome || 0}
+            
+          />
+
+          <RecentIncome
+          transactions ={dashboardData.last60DaysIncome?.transactions || []}
+          onseeMore ={()=> navigate("/income")}
+          />
+        </div>
+        </>
+      )}
      </div>
     </DashboardLayout>
   )

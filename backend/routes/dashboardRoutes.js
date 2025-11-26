@@ -8,4 +8,3 @@ const router = express.Router();
 router.get('/' ,protect ,  getDashboardData);
 
 module.exports = router;
-
