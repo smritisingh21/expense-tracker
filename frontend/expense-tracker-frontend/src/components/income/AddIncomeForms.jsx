@@ -15,6 +15,7 @@ import Input from '../layouts/Input.jsx'
 
   return (
     <div>
+      
         <EmojiPickerPopup
         icon = {income.icon}
         onSelect ={(selectedIcon) => handleChange("icon" , selectedIcon)}/>

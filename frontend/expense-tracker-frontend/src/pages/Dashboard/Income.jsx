@@ -6,6 +6,7 @@ import Modal from '../../components/layouts/Modal.jsx';
 import { toast } from 'react-hot-toast';
 import AddIncomeForms from '../../components/income/AddIncomeForms.jsx';
 import axiosInstance from '../../utils/axiosInstance.js';
+import IncomeList  from '../../components/income/IncomeList.jsx';
 
 export default function Income() {
   const [incomeData , setIncomeData] = useState([]);
@@ -78,7 +79,14 @@ export default function Income() {
             onAddIncome={() => setOpenAddIncomeModal(true)}
             />
           </div>
+         
+           <IncomeList transactions={incomeData}
+            onDelete={(id) =>{setOpenDeleteAlert({show : true , data : id}) }}
+            onDownload={handleDownloadIncomeDetails}
+            />
+            
         </div>
+
 
         <Modal title ='Add income' 
         isOpen={openAddincomeModal} 
@@ -86,6 +94,18 @@ export default function Income() {
 
           <AddIncomeForms onAddIncome={handleAddIncomes}></AddIncomeForms>
         </Modal>
+
+        <Modal
+          isOpen={openDeleteAlert.show}
+          onClose={() => setOpenDeleteAlert({show :false ,  data: null})}
+          title="Delete Income"
+          >
+            <DeleteAlert
+            content = "Are you sure you want to delete this income?"
+            onDelete={() => deleteIncome(openDeleteAlert.data)}
+            />
+            
+          </Modal>
         </div>
      </DashboardLayout>
   )
