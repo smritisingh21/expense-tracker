@@ -10,17 +10,15 @@ export const CustomPieChart = ({data , label , totalAmount ,colors,showTextAncho
         <ResponsiveContainer width='100%' height={380}>
         <PieChart>
             <Pie
-            data={data}
+            data={data[0] || []}
             dataKey="amount"
             nameKey="name"
             cx='50%' cy='50%'
             innerRadius={100} outerRadius={130} 
             labelLine={false}>
-            {data.map((entry,index) =>{
-              (
+            {data.map((entry,index) =>(
                 <Cell key={index} fill={colors[index % colors.length]}/>
-            )
-            })}
+            ))}
             </Pie>
             <Tooltip content={CustomTooltip} />
             <Legend content={CustomLegend}/>

@@ -51,7 +51,6 @@ export default function Home() {
     <DashboardLayout activeMenu="Dashboard">
     <div className=' my-5 mx-auto'>
       
-      {/* FIX: Add defensive rendering while data is null or loading */}
       {(!dashboardData || loading) ? (
         <div className='text-white text-center py-20'>Loading Dashboard Data...</div>
       ) : (

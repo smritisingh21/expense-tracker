@@ -37,6 +37,7 @@ export default function Income() {
     }
     if(!amount || isNaN(amount) || Number(amount)<=0){
       toast.error("Amount should be a valid number greater than 0.");
+      return;
     }
     if(!date){
       toast.error("Date is required.");
@@ -44,7 +45,7 @@ export default function Income() {
     }
     try{
       await axiosInstance.post(API_PATHS.INCOME.ADD_INCOME ,{
-        amount ,
+        amount :Number(amount) ,
         source ,
         date,
         icon,
@@ -52,11 +53,7 @@ export default function Income() {
       setOpenAddIncomeModal(false);
       toast.success("Income added successfully.")
     }catch(err){
-      console.err( "Error adding income: ",
-        err.response?.data?.message || err.message
-
-      )
-
+    console.error( "Error adding income: ", errorMessage);
     }
   }
   const handleDeleteIncomes =async() =>{
@@ -83,7 +80,7 @@ export default function Income() {
           </div>
         </div>
 
-        <Modal title ='add income' 
+        <Modal title ='Add income' 
         isOpen={openAddincomeModal} 
         onClose={() => setOpenAddIncomeModal(false)}>
 

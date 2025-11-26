@@ -1,5 +1,6 @@
 import React,{useState} from 'react'
 import { EmojiPickerPopup } from '../layouts/EmojiPickerPopup'
+import Input from '../layouts/Input.jsx'
 
  const AddIncomeForms = ({onAddIncome}) => {
     const [income, setIncome] = useState({
@@ -9,7 +10,8 @@ import { EmojiPickerPopup } from '../layouts/EmojiPickerPopup'
         icon: ""
     })
 
-    const handleChange = (key , value) => setIncome({...income ,[key] : value})
+    const handleChange = (key , value) => 
+      setIncome({...income ,[key] : value})
 
   return (
     <div>
@@ -20,7 +22,7 @@ import { EmojiPickerPopup } from '../layouts/EmojiPickerPopup'
         value={income.source}
         label="Income Source"
         onChange={({target}) => handleChange("source" , target.value)}
-        placeholder= " "
+        placeholder= "Freelance , Salary , etc"
         type="text" 
         />
 
@@ -28,7 +30,7 @@ import { EmojiPickerPopup } from '../layouts/EmojiPickerPopup'
         value={income.amount}
         label="Income amount"
         onChange={({target}) => handleChange("amount" , target.value)}
-        placeholder= " "
+        placeholder= "Amount"
         type="number"
         />
 
@@ -45,8 +47,7 @@ import { EmojiPickerPopup } from '../layouts/EmojiPickerPopup'
              type='button'
              className='add-btn add-btn-fill'
              onClick={() => onAddIncome(income)}
-            >
-                Add income
+            >Add income
             </button>
         </div>
     </div>

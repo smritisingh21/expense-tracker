@@ -21,7 +21,7 @@ const COLORS =["#075CF5" ,"#FA2C37","#FF6900"]
         </div>
 
         <CustomPieChart
-        data={balanceData} // Now passing a stable array reference
+        data={balanceData} 
         label ='Total balance'
         totalAmount={`$${totalBalance}`}
         colors={COLORS}

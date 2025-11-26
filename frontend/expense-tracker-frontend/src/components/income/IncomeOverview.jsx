@@ -14,18 +14,17 @@ export const IncomeOverview = ({transactions, onAddIncome}) => {
 
     },[transactions])
 
-  return (
-    <div className='card'>
+  return <div className='card'>
         <div className='flex items-center justify-between'>
             <div>
             <h5 className='text-lg'>Income overview</h5>
-            <p className='text-xs text-grey-400 mt-0.5'>
-                Track your earnings overtime and analyse your income trends.</p>
+            <p className='text-xs text-gray-400 mt-0.5'>
+                Track your earnings overtime and analyze your income trends.</p>
             </div>
         </div>
 
-        <button className='add-btn' onClick={onAddIncome}>
-            <LuPlus className=''/>
+        <button className='add-btn mt-3' onClick={onAddIncome}>
+            <LuPlus className='text-lg'/>
             Add income
         </button>
 
@@ -35,7 +34,7 @@ export const IncomeOverview = ({transactions, onAddIncome}) => {
 
 
     </div>
-  )
+  
 }
 
 export default IncomeOverview;
