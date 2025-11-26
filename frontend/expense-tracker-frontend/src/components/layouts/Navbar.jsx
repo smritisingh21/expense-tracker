@@ -18,7 +18,7 @@ const Navbar = ({activeMenu}) => {
 
         {openSideMenu && (
             <div className='fixed top-[61px] ml-4 bg-white'>
-              <SideMenu activeMenu = {activeMenu}/> </div>
+              <SideMenu activeMenu ={activeMenu}/> </div>
          )}
     </div>
     

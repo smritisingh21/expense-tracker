@@ -10,7 +10,7 @@ export const SIDE_DATA_MENU =[
         id: "01",
         label:"Dashboard",
         icon:LuLayoutDashboard,
-        path: "/dashbaord"
+        path: "/dashboard"
 
     },
     {

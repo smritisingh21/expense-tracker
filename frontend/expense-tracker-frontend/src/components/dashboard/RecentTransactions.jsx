@@ -1,7 +1,6 @@
 import React from 'react'
 import { LuArrowRight } from 'react-icons/lu'
 import TransactionInfoCard from '../cards/TransactionInfoCard'
-import { IoMdDocument } from 'react-icons/io'
 import moment from 'moment'
 
 const RecentTransactions = ({transactions , onseeMore}) => {

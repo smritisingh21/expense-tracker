@@ -6,7 +6,8 @@ import { LuUtensils , LuTrendingUp ,LuTrendingDown , LuTrash2 } from 'react-icon
 const TransactionInfoCard = ({title ,icon,date,amount,type,hideDeleteBtn,onDelete}) => {
 
     const getAmountStyles = () => {
-    type === "income" ? "bg-green-50 text-green-500" : "bg-red-50 text-red-500"} 
+    return type === "income" ? "bg-green-50 text-green-500" : "bg-red-50 text-red-500"} 
+
   return (
     <div className='group relative flex items-center gap-2 mt-4 p-3 rounded-lg hover:bg-gray-100/50'>
        <div className='w-12 h-12 flex items-center justify-center text-xl text-gray-800 bg-gray-100 rounded-full' >
