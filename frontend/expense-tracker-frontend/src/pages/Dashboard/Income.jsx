@@ -8,17 +8,24 @@ import AddIncomeForms from '../../components/income/AddIncomeForms.jsx';
 import axiosInstance from '../../utils/axiosInstance.js';
 import IncomeList  from '../../components/income/IncomeList.jsx';
 import DeleteAlert from '../../components/DeleteAlert.jsx';
+import axios from 'axios';
+import useUserAuth from '../../hooks/useUserAuth.jsx';
 
 
 export default function Income() {
+    useUserAuth();
+
   const [incomeData , setIncomeData] = useState([]);
   const [loading , setLoading] = useState(false);
   const [openDeleteAlert , setOpenDeleteAlert] = useState({show :false, data: null});
   const [openAddincomeModal , setOpenAddIncomeModal] = useState(false);
 
-  const getAllIncomeDetails = async() =>{
+
+  //get income details
+  const fetchIncomeDetails = async() =>{
     if(loading) return;
     setLoading(true);
+
     try{
       const response = await axiosInstance.get(`${API_PATHS.INCOME.GET_ALL_INCOME}`)
       if(response.data){
@@ -30,6 +37,8 @@ export default function Income() {
       setLoading(false);
     }
   }
+
+  //add income
   const handleAddIncomes =async(income) =>{
     const {source , amount , date , icon} = income;
     
@@ -53,21 +62,37 @@ export default function Income() {
         date,
         icon,
       })
+      fetchIncomeDetails();
       setOpenAddIncomeModal(false);
       toast.success("Income added successfully.")
     }catch(err){
     console.error( "Error adding income: ", errorMessage);
     }
   }
-  const handleDeleteIncomes =async() =>{
 
+  //delete income
+  const handleDeleteIncome =async(id) =>{
+    try{
+      await axiosInstance.delete(API_PATHS.INCOME.DELETE_INCOME(id))
+
+      setOpenDeleteAlert({show:false , data:null});
+      toast.success("Income details deleted succesfully");
+      fetchIncomeDetails();
+    }catch(error){
+      console.error(
+      "Error deleting income: ",
+      error.response?.data?.message || error.message
+      )
+    }
   }
+
+  //download
   const handleDownloadIncomeDetails =async() =>{
 
   }
 
   useEffect(() =>{
-    getAllIncomeDetails();
+    fetchIncomeDetails();
     return(() => {})
   },[])
 
@@ -104,7 +129,7 @@ export default function Income() {
           >
             <DeleteAlert
             content = "Are you sure you want to delete this income?"
-            onDelete={() => deleteIncome(openDeleteAlert.data)}
+            onDelete={() => handleDeleteIncome(openDeleteAlert.data)}
             />
             
           </Modal>
