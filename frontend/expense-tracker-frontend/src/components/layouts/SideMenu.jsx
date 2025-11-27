@@ -53,6 +53,7 @@ const SideMenu = ({activeMenu}) => {
                     activeMenu === item.label ? "text-white bg-primary"  :  " "
                 } py-3 px-6 rounded-lg mb-3 cursor-pointer`}
                  onClick ={()=> navigate(item.path)}
+                
                 >
 
                 <item.icon className="text-xl"/>

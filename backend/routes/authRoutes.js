@@ -1,7 +1,7 @@
 const express = require("express");
 const { protect } = require("../middlewares/authMiddleware");
 const upload = require('../middlewares/uploadMiddleware')
-const { registerUser, loginUser,  getUserInfo, } = require("../controllers/authController");
+const { registerUser, loginUser,  getUserInfo,logout } = require("../controllers/authController");
 
 
 const router = express.Router();
@@ -9,6 +9,7 @@ const router = express.Router();
 router.post("/register", registerUser);
 router.post("/login", loginUser);
 router.get("/getUser", protect ,getUserInfo);
+router.get("/logout" ,logout);
 
 router.post('/upload-image' , upload.single("image") ,(req, res)=>{
 

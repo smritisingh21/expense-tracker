@@ -5,7 +5,7 @@ import SignUp from "./pages/Auth/SignUp"
 import Income from  "./pages/Dashboard/Income.jsx"
 import Expense from  "./pages/Dashboard/Expense.jsx"
 import {Toaster} from 'react-hot-toast'
-
+import Logout from "./pages/Auth/Logout.jsx"
 
 import { BrowserRouter as Router , Routes , Route , Navigate } from "react-router-dom"
 import UserProvider  from "./context/UserContext.jsx"
@@ -24,6 +24,7 @@ function App() {
           <Route path="/register"  element={<SignUp />} />
           <Route path="/income"  element={<Income />} />
           <Route path="/expenses"  element={<Expense />} />
+          <Route path="/Logout"  element={<Logout />} />
 
         </Routes>
       </Router>

@@ -87,3 +87,12 @@ const jwt = require("jsonwebtoken");
 
     
  };
+
+
+ exports.logout= async(req,res) =>{
+    try{
+       console.log("logged out")
+    }catch(error){
+        
+    }
+ }
