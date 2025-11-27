@@ -7,6 +7,8 @@ import { toast } from 'react-hot-toast';
 import AddIncomeForms from '../../components/income/AddIncomeForms.jsx';
 import axiosInstance from '../../utils/axiosInstance.js';
 import IncomeList  from '../../components/income/IncomeList.jsx';
+import DeleteAlert from '../../components/DeleteAlert.jsx';
+
 
 export default function Income() {
   const [incomeData , setIncomeData] = useState([]);
