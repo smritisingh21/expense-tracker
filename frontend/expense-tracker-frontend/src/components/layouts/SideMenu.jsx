@@ -46,6 +46,7 @@ const SideMenu = ({activeMenu}) => {
             </div>
 
             { SIDE_DATA_MENU.map((item , index) =>(
+                
                 <button
                  key= {`menu_${index}`}
                  className={`w-full flex items-center gap-4 text-[15px] ${ 

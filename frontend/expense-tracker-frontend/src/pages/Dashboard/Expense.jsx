@@ -4,7 +4,7 @@ import { ExpenseOverview } from '../../components/expense/ExpenseOverview';
 import Modal from '../../components/layouts/Modal';
 import DashboardLayout from '../../components/layouts/DashboardLayout';
 import AddExpenseForms from '../../components/expense/AddExpenseForms';
-import {ExpenseList} from "../../components/expense/ExpenseList"
+import ExpenseList from "../../components/expense/ExpenseList"
 import DeleteAlert from '../../components/DeleteAlert';
 import axiosInstance from '../../utils/axiosInstance';
 import API_PATHS from '../../utils/apiPaths';
@@ -20,7 +20,7 @@ export default function Expense() {
   const [openDeleteAlert , setOpenDeleteAlert] = useState({show :false, data: null});
   const [openAddExpenseModal , setOpenAddExpenseModal] = useState(false);
 
-//get income details
+  //get income details
   const fetchExpenseDetails = async() =>{
       if(loading) return;
       setLoading(true);
@@ -88,7 +88,24 @@ export default function Expense() {
   }
 
   const DownloadExpenseDetails = async() =>{
-
+    try{
+      const response = await axiosInstance.get(API_PATHS.EXPENSE.DOWNLOAD_EXPENSE,
+        {
+        responseType:"blob",
+        }
+    );
+      const url = window.URL.createObjectURL(new Blob([response.data]))
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download" , "expense_details.xlsx");
+      document.body.appendChild(link);
+      link.click();
+      link.parentNode.removeChild(link);
+      window.URL.revokeObjectURL(url);
+      }catch(error){
+        console.error("Error downloading expense details:" , error);
+        toast.error("Failed to download.Please try again.")
+      }
   }
 
   useEffect(() =>{

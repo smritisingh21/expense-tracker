@@ -39,10 +39,15 @@ exports.getAllExpense= async( req, res) => {
 }
 
 //delete
-exports.deleteExpense = async( req, res) => {
+exports.deleteExpense = async ( req, res) => {
+    const expenseId = req.params.id;
     const userId = req.user.id;
     try{
-        const expense = await Expense.findByIdAndDelete({ userId : userId}).sort({date: -1})
+        const deletedExpense = await Expense.findOneAndDelete({ 
+            _id: expenseId, 
+            userId: userId 
+        });
+       
         res.json("Deletion successful");
     }catch(err){
      res.status(500).json({message : err.message})
