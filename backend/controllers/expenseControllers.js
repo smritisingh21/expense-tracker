@@ -5,18 +5,23 @@ const Expense = require('../models/expenses')
 exports.addExpense = async( req, res) => {
     const userId = req.user.id;
   try{
-     const {icon ,source, amount, date} = req.body;
-    if(!source || !amount || !date){
-        return res.status(404).json({message : "All fields are required"})
+     const {icon ,category, amount, date} = req.body;
+    if(!category || !amount || !date){
+        return res.status(400).json({message : "All fields are required"})
     }
 
     const newExpense= new Expense({
-        userId , source , amount ,date:new Date(date)
+        userId ,
+        category ,
+        amount:Number(amount) ,
+        date:new Date(date)
     })
 
     await newExpense.save();
-    res.status(200).json(newIncome);
+    res.status(200).json(newExpense);
+
 }catch(err){
+     console.error("Error adding expense:", err);
     res.status(500).json({message : err.message})
 }
 }
@@ -50,7 +55,7 @@ exports.downloadExpenseExcel = async(req, res) =>{
         const expense = await Expense.find({ userId : userId}).sort({date: -1})
         
         const data = expense.map((expense) =>({
-            source : expense.source,
+            category : expense.category, 
             amount : expense.amount,
             date : expense.date,
         }))

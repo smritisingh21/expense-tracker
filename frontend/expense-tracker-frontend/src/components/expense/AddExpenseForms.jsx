@@ -2,9 +2,9 @@ import React,{useState} from 'react'
 import { EmojiPickerPopup } from '../layouts/EmojiPickerPopup'
 import Input from '../layouts/Input.jsx'
 
- const AddExpenseForms = ({onAddExpense}) => {
+ const AddExpenseForms = ({ onAddExpense }) => {
     const [expense, setExpense] = useState({
-        source : "",
+        category: "",
         amount : "",
         date : "",
         icon: ""
@@ -19,17 +19,19 @@ import Input from '../layouts/Input.jsx'
         <EmojiPickerPopup
         icon = {expense.icon}
         onSelect ={(selectedIcon) => handleChange("icon" , selectedIcon)}/>
+        
+        
         <Input
-        value={expense.source}
-        label="Expense Source"
-        onChange={({target}) => handleChange("source" , target.value)}
-        placeholder= "Freelance , Salary , etc"
+        value={expense.category}
+        label="Category"
+        onChange={({target}) => handleChange("category" , target.value)}
+        placeholder= "Rent , Groceries ,etc"
         type="text" 
         />
 
         <Input
         value={expense.amount}
-        label="Expense amount"
+        label="Amount"
         onChange={({target}) => handleChange("amount" , target.value)}
         placeholder= "Amount"
         type="number"

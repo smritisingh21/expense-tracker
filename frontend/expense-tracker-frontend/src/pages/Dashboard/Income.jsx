@@ -8,12 +8,11 @@ import AddIncomeForms from '../../components/income/AddIncomeForms.jsx';
 import axiosInstance from '../../utils/axiosInstance.js';
 import IncomeList  from '../../components/income/IncomeList.jsx';
 import DeleteAlert from '../../components/DeleteAlert.jsx';
-import axios from 'axios';
 import useUserAuth from '../../hooks/useUserAuth.jsx';
 
 
 export default function Income() {
-    useUserAuth();
+  useUserAuth();
 
   const [incomeData , setIncomeData] = useState([]);
   const [loading , setLoading] = useState(false);

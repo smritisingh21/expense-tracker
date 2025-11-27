@@ -15,6 +15,7 @@ const COLORS =["#075CF5" ,"#FA2C37","#FF6900"]
     ]), [totalBalance, totalIncome, totalExpense]); // Dependencies are the primitive values
     
   return (
+    
     <div className='card'>
         <div className='flex items-center justify-between'>
             <h5 className='text-lg'>Financial overview</h5>

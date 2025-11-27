@@ -8,7 +8,7 @@ import {ExpenseList} from "../../components/expense/ExpenseList"
 import DeleteAlert from '../../components/DeleteAlert';
 import axiosInstance from '../../utils/axiosInstance';
 import API_PATHS from '../../utils/apiPaths';
-
+import toast from 'react-hot-toast';
 
 
 export default function Expense() {
@@ -18,7 +18,7 @@ export default function Expense() {
   const [expenseData , setExpenseData] = useState([]);
   const [loading , setLoading] = useState(false);
   const [openDeleteAlert , setOpenDeleteAlert] = useState({show :false, data: null});
-  const [openAddincomeModal , setOpenAddIncomeModal] = useState(false);
+  const [openAddExpenseModal , setOpenAddExpenseModal] = useState(false);
 
 //get income details
   const fetchExpenseDetails = async() =>{
@@ -36,6 +36,8 @@ export default function Expense() {
       setLoading(false);
     }
   }
+
+  //add
   const AddExpenseDetails = async(expense) =>{
      const {category , amount , date , icon} = expense;
     
@@ -63,11 +65,12 @@ export default function Expense() {
       setOpenAddExpenseModal(false);
       toast.success("Expense added successfully.")
       fetchExpenseDetails();
-    }catch(err){
-    console.error( "Error adding expense: ", errorMessage);
+    }catch(error){
+    console.error( "Error adding expense: ", error);
     }
   }
 
+  //delete
   const deleteExpense = async(id) =>{
   try{
       await axiosInstance.delete(API_PATHS.EXPENSE.DELETE_EXPENSE(id))
@@ -95,13 +98,14 @@ export default function Expense() {
 
 
   return (
-     <DashboardLayout activeMenu="Expense">
+     <DashboardLayout activeMenu="Expenses">
        <div className=' my-5 mx-auto'>
         <div className='grid grid-cols-1 gap-6'>
           <div>
+
             <ExpenseOverview 
             transactions ={expenseData}
-            onAddIncome={() => setOpenAddIncomeModal(true)}
+            onAddExpense={() => setOpenAddExpenseModal(true)}
             />
           </div>
          
@@ -114,10 +118,9 @@ export default function Expense() {
 
 
         <Modal title ='Add expense' 
-        isOpen={openAddincomeModal} 
+        isOpen={openAddExpenseModal} 
         onClose={() => setOpenAddExpenseModal(false)}>
-
-          <AddExpenseForms onAddExpense={AddExpenseDetails} />
+        <AddExpenseForms onAddExpense={AddExpenseDetails} />
         </Modal>
 
         <Modal
