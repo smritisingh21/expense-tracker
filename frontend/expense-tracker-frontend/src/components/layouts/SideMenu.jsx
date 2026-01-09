@@ -38,7 +38,7 @@ const SideMenu = ({activeMenu}) => {
     }catch(err){
       console.log(err);
     }
-      setLoading(false);
+      setIsUploading(false);
     
   }
 

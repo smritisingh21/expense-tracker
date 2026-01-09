@@ -9,7 +9,6 @@ import { UserContext } from '../../context/UserContext'
 import { ThemeContext } from '../../context/ThemeContext'
 import { FaHeart } from 'react-icons/fa'
 import {GoogleLogin , googleLogout} from '@react-oauth/google'
-import { jwtDecode } from "jwt-decode";
 
 
 export default function Login() {
@@ -22,7 +21,7 @@ export default function Login() {
   const {isDark, toggleDark} =useContext(ThemeContext);
   const {updateUser, user} = useContext(UserContext);
 
-
+  //google auth
   const handleSuccess = async (credentialResponse) => {
     const res = await axiosInstance.post(`${API_PATHS.AUTH.GOOGLE_LOGIN}`,
       { token: credentialResponse.credential }
@@ -33,11 +32,7 @@ export default function Login() {
     navigate("/dashboard");
   };
 
-  function handleLogout () {
-    googleLogout()
-  }
-  //handle login form submit
- 
+  //login form 
   const handleLogin= async (e) => { 
   e.preventDefault();
 
@@ -52,7 +47,6 @@ export default function Login() {
   else setError("");
 
 //Login API call
-
   try{
   const response = await axiosInstance.post(API_PATHS.AUTH.LOGIN,{
     email,
@@ -72,9 +66,9 @@ export default function Login() {
     setError("Something went wrong. Please try again")
   }
   }}
+  
   return (
     <AuthLayout>
-
   <div className="w-full max-w-md mx-auto flex flex-col">
     <h3 className={`${isDark ? "text-white" : "text-black"} text-xl font-semibold`}>
       Welcome Back

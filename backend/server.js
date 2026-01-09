@@ -13,20 +13,33 @@ const app = express();
 
 const allowedOrigins = [
     "http://localhost:5173",
-  "https://fin-track.vercel.app",
-  "https://fin-track-ivory.vercel.app",
-"https://fin-track-git-main-smritisingh21s-projects.vercel.app/"
+    "https://fin-track.vercel.app",
+    "https://fin-track-ivory.vercel.app",
+    "https://fin-track-git-main-smritisingh21s-projects.vercel.app"
 ]
 
-app.use( //global middleware
-    cors(
-        {
-        origin : allowedOrigins,
-        methods: ["GET", "POST", "PUT", "DELETE"],
-        allowedHeaders: ["Content-Type", "Authorization"],
+app.use(cors({
+    origin: function (origin, callback) {
+        // Allow requests with no origin (like mobile apps or curl requests)
+        if (!origin) return callback(null, true);
+        
+        // 1. Check if the origin is in our "Gold Standard" list
+        const isWhitelisted = allowedOrigins.indexOf(origin) !== -1;
+        
+        // 2. Check if it's a Vercel preview/dynamic domain
+        const isVercelDomain = origin.endsWith(".vercel.app");
 
-    }
-))
+        if (isWhitelisted || isVercelDomain) {
+            callback(null, true);
+        } else {
+            // "The Root Cause" - If it's not on the list or a Vercel domain, block it.
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true // Helpful for Authorization headers
+}));
 app.use(express.urlencoded({extended:true}))
 app.use(express.json());
 connectDB();

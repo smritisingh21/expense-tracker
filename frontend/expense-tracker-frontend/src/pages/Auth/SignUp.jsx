@@ -51,9 +51,7 @@ export default function Signup() {
 
     try{
         const response = await axiosInstance.post(API_PATHS.AUTH.REGISTER, formData);
-
         const { token, user } = response.data;
-
         if (token) {
             localStorage.setItem("token", token);
             updateUser(user);

@@ -52,15 +52,10 @@ const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
     }
     };
 
-
-    
  //login user 
  exports.loginUser = async (req, res) => {
     const { email, password } = req.body;
 
-
-
-    //validation : check all fields are filled
     if (!email || !password) {
         return res.status(400).json({ message: "Please fill all fields" });
     }
@@ -93,6 +88,7 @@ const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
         res.status(500).json({ message: "Server error", error: error.message });
     }
  };
+
  //get user 
  exports.getUserInfo = async (req, res) => {
     try {
@@ -104,8 +100,6 @@ const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
     } catch (error) {
         res.status(500).json({ message: "Error registering user", error: error.message });
     }
-
-    
  };
 
 exports.uploadProfileImage = async (req, res) => {
