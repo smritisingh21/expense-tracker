@@ -13,9 +13,10 @@ const app = express();
 
 const allowedOrigins = [
     "http://localhost:5173",
-    "https://fin-track.vercel.app",
     "https://fin-track-ivory.vercel.app",
-    "https://fin-track-git-main-smritisingh21s-projects.vercel.app"
+    "http://fin-track-ivory.vercel.app",
+    "https://fin-track-git-main-smritisingh21s-projects.vercel.app",
+    "http://fin-track-git-main-smritisingh21s-projects.vercel.app"
 ]
 
 app.use(cors({
@@ -38,7 +39,7 @@ app.use(cors({
     },
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
     allowedHeaders: ["Content-Type", "Authorization"],
-    credentials: true // Helpful for Authorization headers
+    credentials: true 
 }));
 app.use(express.urlencoded({extended:true}))
 app.use(express.json());
@@ -49,6 +50,9 @@ app.use("/api/v1/income", incomeRoutes);
 app.use("/api/v1/expense", expenseRoutes);
 app.use("/api/v1/dashboard", dashboardRoutes);
 app.use('/uploads' , express.static(path.join(process.cwd() ,"uploads")))
+
+
+
 
 const PORT = process.env.PORT || 8000;
 

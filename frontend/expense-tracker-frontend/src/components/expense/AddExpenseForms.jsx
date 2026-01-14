@@ -1,9 +1,12 @@
-import React,{useState} from 'react'
+import React,{useContext, useState} from 'react'
 import { EmojiPickerPopup } from '../layouts/EmojiPickerPopup'
 import Input from '../layouts/Input.jsx'
 import Modal from '../layouts/Modal.jsx'
+import ThemeContext from '../../context/ThemeContext.jsx'
+
 
  const AddExpenseForms = ({ onAddExpense }) => {
+    const {isDark} = useContext(ThemeContext);
     const [expense, setExpense] = useState({
         category: "",
         amount : "",

@@ -2,12 +2,13 @@ import React,{createContext ,useState} from 'react';
 
 export const UserContext = createContext();
 
-const UserProvider = ({children}) =>{
+export const UserProvider = ({children}) =>{
 
     const [user , setUser ] = useState(null);
 
     const updateUser = (userData) =>{
-        setUser(userData);
+        const updatedData = { ...user, ...userData };
+        setUser(updatedData);
     }
     const clearUser = () =>{
         setUser(null);

@@ -26,7 +26,6 @@ export default function Login() {
     const res = await axiosInstance.post(`${API_PATHS.AUTH.GOOGLE_LOGIN}`,
       { token: credentialResponse.credential }
     );
-    console.log(res.data.token);
     localStorage.setItem("token", res.data.token);
     updateUser(user);            
     navigate("/dashboard");
@@ -53,7 +52,6 @@ export default function Login() {
     password,
   })
   const {token , user} = response.data;
-
   if(token){
     localStorage.setItem("token" ,token);
     updateUser(user);
@@ -66,15 +64,15 @@ export default function Login() {
     setError("Something went wrong. Please try again")
   }
   }}
-  
+
   return (
     <AuthLayout>
   <div className="w-full max-w-md mx-auto flex flex-col">
-    <h3 className={`${isDark ? "text-white" : "text-black"} text-xl font-semibold`}>
+    <h3 className={`${isDark ? "text-white" : "text-black"} text-xl font-semibold flex justify-center`}>
       Welcome Back
     </h3>
 
-    <p className="text-xs text-slate-500 mt-1 mb-6">
+    <p className="text-xs text-slate-500 mt-1 mb-6 flex justify-center">
     Please enter your details to log in
     </p>
 
@@ -103,16 +101,20 @@ export default function Login() {
               </button>
           </div>
 
-        <p className='text-gray-400 ml-12'>---------OR CONTINUE WITH----------</p>
+        <p className='text-gray-400 ml-12 flex items-center justify-center'>--------------- OR CONTINUE WITH ---------------</p>
            
    </form>
 
 
+<div className="w-full flex">
+  <div className="w-full">
     <GoogleLogin
       onSuccess={handleSuccess}
-      onError={() => console.log("Login Failed")}
+      onError={() => console.log("Google auth failed")}
+      width="100%"
     />
-
+  </div>
+</div>
       <p className='text-[13px] text-slate-800 mt-3' >
         Don't have an account? {" "}
         <Link to={"/register"}className={` onhover:underline font-medium ${isDark? 'text-white' :'text-black'}`}>

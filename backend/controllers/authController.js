@@ -7,7 +7,7 @@ const {OAuth2Client} = require('google-auth-library')
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
  const generateToken = (id) => {
-     return jwt.sign({ id}, process.env.JWT_SECRET, {expiresIn: "12h",});
+     return jwt.sign({id}, process.env.JWT_SECRET, {expiresIn: "12h",});
  }
 
  //register user 
@@ -18,13 +18,21 @@ const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
     if (!name || !email || !password) {
         return res.status(400).json({ message: "Please fill all fields" });
     }
-    console.log("BODY:", req.body);
-    console.log("FILE:", req.file);
+
     try{
         const userExists = await User.findOne({ email });
-        if (userExists) {
-            return res.status(400).json({ message: "User already exists" });
-        }
+
+       
+    if (userExists) {
+      if (userExists.authProvider === "google") {
+        return res.status(400).json({
+          message: "Please sign in using Google",
+        });
+      }
+
+      return res.status(400).json({ message: "User already exists" });
+    }
+
          // Check if an image was uploaded via Multer
         let profileImageUrl;
         if (req.file) {
@@ -75,7 +83,7 @@ const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
             return res.status(400).json({
             message: "Please login using Google",
         });
-}
+      }
 
         res.status(200).json({
             user,

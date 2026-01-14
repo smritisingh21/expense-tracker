@@ -10,6 +10,7 @@ import axiosInstance from '../../utils/axiosInstance';
 import uploadImage  from '../../utils/uploadImage';
 import { ThemeContext } from '../../context/ThemeContext';
 import { FaHeart } from 'react-icons/fa';
+import {GoogleLogin , googleLogout} from '@react-oauth/google'
 
 
 export default function Signup() {
@@ -21,10 +22,19 @@ export default function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
-  const {updateUser} = useContext(UserContext);
+  const {updateUser , user} = useContext(UserContext);
 
 
   let profileImageUrl = "";
+   //google auth
+  const handleSuccess = async (credentialResponse) => {
+    const res = await axiosInstance.post(`${API_PATHS.AUTH.GOOGLE_LOGIN}`,
+      { token: credentialResponse.credential }
+    );
+    localStorage.setItem("token", res.data.token);
+    updateUser(user);            
+    navigate("/dashboard");
+  };
 
  const handleSignup = async (e) => {
     e.preventDefault();
@@ -110,6 +120,7 @@ return (
             <button type='submit' className={`btn-primary`}>
               SIGN UP
             </button>
+           
             <p className={`text-[13px] text-slate-600 mt-3`}>
               Already have an account? {' '}
               <Link to="/login" className={` onhover:underline font-medium 
@@ -119,14 +130,17 @@ return (
             </p>            
             
           </div>
-     
-
-           <p className='text-xs text-gray-600 mt-10 flex gap-2 justify-center'>Made with <FaHeart size={15} color='red'/> by Smriti Singh</p>
+          
+          <p className='text-gray-400 ml-12 flex items-center justify-center'>---------------OR CONTINUE WITH---------------</p>
 
             </div>
           </div>
          </form>
-
+          <GoogleLogin
+            onSuccess={handleSuccess}
+            onError={() => console.log("Sign in Failed")}
+          />
+           <p className='text-xs text-gray-600 mt-10 flex gap-2 justify-center'>Made with <FaHeart size={15} color='red'/> by Smriti Singh</p>
            
       </div>
     </AuthLayout>

@@ -1,6 +1,6 @@
 import React, { useContext ,useState,useRef} from 'react'
 import { SIDE_DATA_MENU } from '../../utils/data.js'
-import { UserContext } from '../../context/UserContext'
+import UserProvider ,{ UserContext } from '../../context/UserContext'
 import { useNavigate } from 'react-router-dom'
 import CharAvatar from '../cards/CharAvatar.jsx'
 import { ThemeContext } from '../../context/ThemeContext.jsx'
@@ -31,14 +31,13 @@ const SideMenu = ({activeMenu}) => {
 
       const data = await uploadImage(file);
       if (data && data.user) {
-            toast.success("Profile updated!");
+        updateUser(data.profileImageUrl);
+        toast.success("Profile updated!");
+          } 
+        }catch(err){
+          console.log(err);
         }
-      window.location.reload();
-      
-    }catch(err){
-      console.log(err);
-    }
-      setIsUploading(false);
+        setIsUploading(false);
     
   }
 
