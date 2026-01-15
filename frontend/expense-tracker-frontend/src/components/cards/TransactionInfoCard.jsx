@@ -34,7 +34,7 @@ const TransactionInfoCard = ({title ,icon,date,amount,type,hideDeleteBtn,onDelet
 
        <div className='flex-1 flex items-center justify-between'>
         <div>
-            <p className='text-md text-gray-600 font-medium'>{title}</p>
+            <p className={`text-md font-medium ${isDark ? "text-white" :" text-gray-600"}`}>{title}</p>
             <p className='text-sm text-gray-400 mt-1'>{date}</p>
          </div>
 
