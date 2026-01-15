@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from 'react'
+import React, { useContext, useEffect,useState } from 'react'
 import useUserAuth from '../../hooks/useUserAuth';
 import { ExpenseOverview } from '../../components/expense/ExpenseOverview';
 import Modal from '../../components/layouts/Modal';
@@ -10,11 +10,13 @@ import axiosInstance from '../../utils/axiosInstance';
 import API_PATHS from '../../utils/apiPaths';
 import toast from 'react-hot-toast';
 import { RiLoader2Fill } from 'react-icons/ri';
+import ThemeContext from '../../context/ThemeContext';
 
 
 export default function Expense() {
   
   useUserAuth();
+  const {isDark } = useContext(ThemeContext);
 
   const [expenseData , setExpenseData] = useState([]);
   const [loading , setLoading] = useState(false);
@@ -121,10 +123,10 @@ export default function Expense() {
 
          {
           (!expenseData || loading) ? (
-            <div className='flex justify-center items-center gap-3'>
-            <div className='animate-spin text-white'><RiLoader2Fill size={40} /></div>
-                <div className='text-white text-center py-20'>Loading your expense data...</div>
-            </div>
+             <div className='flex justify-center items-center gap-3 py-30'>
+                <div className={`' animate-spin ' ${isDark? 'text-white' :'text-black'}`}><RiLoader2Fill size={40} /></div>
+                <div className={`' text-center py-20' ${isDark? 'text-white' :'text-black'}`}>Loading your expense data...</div>            
+              </div>   
                        
           )
          : 

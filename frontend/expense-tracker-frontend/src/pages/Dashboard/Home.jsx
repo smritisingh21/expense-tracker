@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../../utils/axiosInstance.js';
 import { API_PATHS } from '../../utils/apiPaths.js';
@@ -15,6 +15,7 @@ import { Last30daysExpense } from '../../components/dashboard/Last30daysExpense.
 import RecentIncomeWithChart from '../../components/dashboard/RecentIncomeWithChart.jsx'
 import RecentIncome from '../../components/dashboard/RecentIncome.jsx'
 import { RiLoader2Fill } from 'react-icons/ri';
+import ThemeContext from '../../context/ThemeContext.jsx';
 
 export default function Home() {
 
@@ -22,6 +23,7 @@ export default function Home() {
     const navigate = useNavigate();
     const [dashboardData , setDashboardData] = useState(null);
     const [loading , setLoading] = useState(false);
+    const {isDark} = useContext(ThemeContext);
     
     const fetchDashboardData = async () =>{
       if(loading ) return ;
@@ -52,9 +54,9 @@ export default function Home() {
       <div className=' my-5 mx-auto '>
       
       {(!dashboardData || loading) ? (
-      <div className='flex justify-center items-center gap-3'>
-        <div className='animate-spin text-white'><RiLoader2Fill size={40} /></div>
-         <div className='text-white text-center py-20'>Loading Dashboard Data...</div>
+      <div className='flex justify-center items-center gap-3 py-30'>
+        <div className={`' animate-spin ' ${isDark? 'text-white' :'text-black'}`}><RiLoader2Fill size={40} /></div>
+         <div className={`' text-center py-20' ${isDark? 'text-white' :'text-black'}`}>Loading your dashboard...</div>
       </div>
        
       ) : (

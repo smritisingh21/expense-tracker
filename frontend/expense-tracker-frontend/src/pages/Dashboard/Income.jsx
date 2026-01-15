@@ -126,11 +126,10 @@ export default function Income() {
 
         {
         (loading) ? (
-              <div className='flex justify-center items-center gap-3'>
-                <div className='animate-spin text-white'><RiLoader2Fill size={40} /></div>
-                 <div className='text-white text-center py-20'>Loading your income data...</div>
-              </div>
-               
+          <div className='flex justify-center items-center gap-3 py-30'>
+           <div className={`' animate-spin ' ${isDark? 'text-white' :'text-black'}`}><RiLoader2Fill size={40} /></div>
+            <div className={`' text-center py-20' ${isDark? 'text-white' :'text-black'}`}>Loading your income data...</div>            
+          </div>        
         )
          : 
         (
