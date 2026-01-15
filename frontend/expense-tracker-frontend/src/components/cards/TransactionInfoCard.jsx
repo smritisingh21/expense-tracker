@@ -24,11 +24,12 @@ const TransactionInfoCard = ({title ,icon,date,amount,type,hideDeleteBtn,onDelet
     <div className={`group relative flex items-center gap-2 hover:transition-transform mt-4 p-3 rounded-lg
      ${isDark? 'hover:bg-gray-800/50' : 'hover:bg-gray-100/50'}`}>
         
-       <div className='w-12 h-12 flex items-center justify-center text-xl text-gray-800 bg-gray-100 rounded-full' >
+       <div className={`w-12 h-12 flex items-center justify-center text-xl  ${isDark ? "bg-gray-800 text-gray-300" :"bg-gray-200 text-gray-800"} rounded-full`} >
             {icon?(
             <img src={icon} alt={title} className='w-6 h-6'/>
             ):(
-            <RiMoneyRupeeCircleLine  size={30}/>
+            <RiMoneyRupeeCircleLine 
+             size={30}/>
             )}
        </div>
 

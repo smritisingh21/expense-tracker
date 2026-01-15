@@ -2,7 +2,7 @@
 @import "tailwindcss";
 
 @theme {
-  --font-display: "Roboto" ;
+  --font-display: "Poppins" ;
   --breakpoint-3xl: 1920px;
   --color-primary: #875cf5
 }
