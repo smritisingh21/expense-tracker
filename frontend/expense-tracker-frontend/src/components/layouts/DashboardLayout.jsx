@@ -9,13 +9,12 @@ export default function DashboardLayout({children, activeMenu }){
   const {user} = useContext(UserContext);
 
   return (
-    <div className={` min-h-full ${isDark ? 'bg-[#030712] ': 'bg-white'} `}>
+    <div className={` min-h-screen ${isDark ? 'bg-[#030712] ': 'bg-white'} `}>
         <Navbar activeMenu = {activeMenu} />
         {
           user && (
            <div className='flex w-full'>
             <div className='max-[1080px]:hidden'>
-              
               <SideMenu activeMenu ={activeMenu}/>
             </div>
             <div className='grow mx-5'>{children}</div>

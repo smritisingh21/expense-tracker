@@ -4,6 +4,9 @@ import { MdDarkMode} from "react-icons/md";
 import { IoIosSunny  } from "react-icons/io";
 import SideMenu from "./SideMenu"
 import { ThemeContext } from '../../context/ThemeContext';
+import { FaGithub } from 'react-icons/fa';
+import { Link } from 'react-router';
+
 
 const Navbar = ({activeMenu}) => {
 
@@ -27,12 +30,18 @@ const Navbar = ({activeMenu}) => {
           <span className='text-[12px] text-gray-500'>Keep your finances in track</span>
         </h2>
 
-        <button className={`cursor-pointer rounded-full ${isDark ? 'darkmode-btn' : 'lightmode-btn'}`}
-         onClick={toggleDark}>
+     <div className='flex justify-center items-center gap-2'>
 
-          {isDark ?  <IoIosSunny size={30} /> : <MdDarkMode size={20}/> }
-    
+         <button className={`cursor-pointer rounded-full ${isDark ? 'darkmode-btn' : 'lightmode-btn'}`}
+         onClick={toggleDark}>
+          {isDark ?  <IoIosSunny size={20} /> : <MdDarkMode size={20}/> }
         </button>
+
+        <Link to={'https://github.com/smritisingh21/Fin-Track'} target="_blank" className={`cursor-pointer rounded-full ${isDark ? 'darkmode-btn' : 'lightmode-btn'}`}>
+        <FaGithub size ={20} />
+      </Link>
+     </div>
+        
 
         {openSideMenu && (
             <div className='fixed top-[61px] ml-4 bg-white '>
