@@ -9,7 +9,6 @@ import { ThemeContext } from '../../context/ThemeContext'
      const {isDark} = useContext(ThemeContext);
   return (
    <div className={`${isDark? 'card-dark' : 'card'}`}>
-
         <div className='flex place-items-center justify-between mb-10 '>
 
             <h5 className={`text-2xl ${isDark? 'text-white' :''}`}>

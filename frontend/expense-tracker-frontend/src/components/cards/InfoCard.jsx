@@ -31,7 +31,7 @@ const InfoCard = ({icon, label, color, value}) =>{
             <h6 className={` mb-1 ${isDark? 'text-white' : 'text-gray-900'}`}>{label}</h6>
             {/* <h6 className='text-white'>{label}</h6> */}
             <span className={`text-[18px]  flex gap-2 items-center ${isDark? 'text-white' : 'text-gray-900'}`}>
-              <FaRupeeSign/>{value} /-</span>
+              <FaRupeeSign/>{value}</span>
             {/* <span className='text-white'>{value} /-</span> */}
         </div>
     </div>

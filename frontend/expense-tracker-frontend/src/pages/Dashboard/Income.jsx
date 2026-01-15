@@ -122,7 +122,7 @@ export default function Income() {
     
     ( 
      <DashboardLayout activeMenu="Income">
-       <div className=' my-5 mx-auto'>
+       <div className=' my-10 mx-auto'>
 
         {
         (loading) ? (
@@ -133,7 +133,7 @@ export default function Income() {
         )
          : 
         (
-        <div className='grid grid-cols-1 gap-6'>
+        <div className='grid grid-cols-1 gap-6 h-full'>
           <div>
             <IncomeOverview 
             transactions ={incomeData}
